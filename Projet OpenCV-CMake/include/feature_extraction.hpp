@@ -14,6 +14,7 @@ using namespace cv;
 pair<int,int> extractSize(const string& fileIm);
 vector<int> countPixel( const string& image);
 double air(const string& image);
+Point reco_barycentre(const string imName);
 
 
 

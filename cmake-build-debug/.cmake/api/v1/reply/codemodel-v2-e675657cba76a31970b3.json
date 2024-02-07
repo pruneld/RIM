@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.14"
+						"string" : "3.26"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -27,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "Projet_OpenCV_CMake",
+					"name" : "RIV",
 					"targetIndexes" : 
 					[
 						0
@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "Projet_OpenCV_CMake::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Projet_OpenCV_CMake-Debug-caab54fab47a710f020e.json",
-					"name" : "Projet_OpenCV_CMake",
+					"id" : "RIV::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-RIV-Debug-abcae86d93d13ffb1e00.json",
+					"name" : "RIV",
 					"projectIndex" : 0
 				}
 			]
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/prune/OneDrive/Documents/TIV/projetGit/TIV/Projet OpenCV-CMake/cmake-build-debug-mingw",
-		"source" : "C:/Users/prune/OneDrive/Documents/TIV/projetGit/TIV/Projet OpenCV-CMake"
+		"build" : "C:/Users/prune/OneDrive/Documents/TIV/RIV/cmake-build-debug",
+		"source" : "C:/Users/prune/OneDrive/Documents/TIV/RIV"
 	},
 	"version" : 
 	{

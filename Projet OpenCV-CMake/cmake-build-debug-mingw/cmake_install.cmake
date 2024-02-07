@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/prune/OneDrive/Documents/TIV/projetGit/TIV/Projet OpenCV-CMake
+# Install script for directory: C:/Users/prune/OneDrive/Documents/TIV/RIV/Projet OpenCV-CMake
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/prune/OneDrive/Documents/TIV/projetGit/TIV/Projet OpenCV-CMake/cmake-build-debug-mingw/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/prune/OneDrive/Documents/TIV/RIV/Projet OpenCV-CMake/cmake-build-debug-mingw/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

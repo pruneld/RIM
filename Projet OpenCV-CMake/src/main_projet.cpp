@@ -42,7 +42,8 @@ int main() {
         fichierARFF<<"@ATTRIBUTES Nombre de pixels noirs numeric\n";
         fichierARFF<<"@ATTRIBUTES Hauteur numeric\n";
         fichierARFF<<"@ATTRIBUTES Largeur numeric\n";
-        fichierARFF<<"@ATTRIBUTES Air numeric\n\n";
+        fichierARFF<<"@ATTRIBUTES Air numeric\n";
+        fichierARFF<<"@ATTRIBUTES Barycentre numeric\n\n";
         //fichierARFF<<"@ATTRIBUTES class {Bomb, casulty}\n\n";
         fichierARFF<<"@DATA\n";
 
@@ -66,7 +67,9 @@ int main() {
 
                         double area = air(image);
 
-                        fichierARFF << count[1] << "," << size.first << "," << size.second << ","<< area <<",?\n";
+                        Point barycentre = reco_barycentre(image);
+
+                        fichierARFF << count[1] << "," << size.first << "," << size.second << ","<< area <<","<< barycentre << ",?\n";
 
 
 
