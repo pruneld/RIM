@@ -43,7 +43,10 @@ int main() {
         fichierARFF<<"@ATTRIBUTES Hauteur numeric\n";
         fichierARFF<<"@ATTRIBUTES Largeur numeric\n";
         fichierARFF<<"@ATTRIBUTES Air numeric\n";
-        fichierARFF<<"@ATTRIBUTES Barycentre numeric\n\n";
+        fichierARFF<<"@ATTRIBUTES x barycentre numeric\n";
+        fichierARFF<<"@ATTRIBUTES y barycentre numeric\n";
+        fichierARFF<<"@ATTRIBUTE class {accident, bomb, car, casualty, electricity, fire, fire brigade, flood, Gas, Injury, paramedics, person, police, road block}\n\n";
+
         //fichierARFF<<"@ATTRIBUTES class {Bomb, casulty}\n\n";
         fichierARFF<<"@DATA\n";
 
@@ -54,6 +57,8 @@ int main() {
                     string nom = entry->d_name;
                     if(nom.size() >2) {
                         string image = string(dossier) + "/" + entry->d_name;
+                        string label = nom.substr(0,nom.size()-15);
+
 
                         vector<int> count = countPixel(image);
                         //cout << "Nb pixels: " << count[0] << endl;
@@ -69,7 +74,8 @@ int main() {
 
                         Point barycentre = reco_barycentre(image);
 
-                        fichierARFF << count[1] << "," << size.first << "," << size.second << ","<< area <<","<< barycentre << ",?\n";
+
+                        fichierARFF << count[1] << "," << size.first << "," << size.second << ","<< area <<","<< barycentre.x << ","<< barycentre.y<<","<<label<<endl;
 
 
 
