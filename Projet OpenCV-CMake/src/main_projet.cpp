@@ -59,28 +59,21 @@ int main() {
                         string image = string(dossier) + "/" + entry->d_name;
                         string label = nom.substr(0,nom.size()-15);
 
+                        pair<int, int> size = extractSize(image);
+                        //cout << "Largeur: " << size.first << endl;
+                        // cout << "Hauteur: " << size.second << endl;
 
-                        vector<int> count = countPixel(image);
+                        vector<int> count = countPixel("../saved_model.png");
                         //cout << "Nb pixels: " << count[0] << endl;
                         //cout << "Black pixels: " << count[1] << endl;
                         //cout << "White pixels: " << count[2]<< endl; // amount of black pixels is returned from the size
 
-                        pair<int, int> size = extractSize(image);
-                        //cout << "Largeur: " << size.first << endl;
-                       // cout << "Hauteur: " << size.second << endl;
+                        double area = air("../saved_model.png");
 
-
-                        double area = air(image);
-
-                        Point barycentre = reco_barycentre(image);
+                        Point barycentre = reco_barycentre("../saved_model.png");
 
 
                         fichierARFF << count[1] << "," << size.first << "," << size.second << ","<< area <<","<< barycentre.x << ","<< barycentre.y<<","<<label<<endl;
-
-
-
-
-
                     }
                 }
 

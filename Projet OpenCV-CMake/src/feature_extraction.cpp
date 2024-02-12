@@ -9,7 +9,7 @@
 pair<int,int> extractSize(const string& fileIm){
     Mat imBase = imread(fileIm);
     Mat im;
-    cvtColor(imBase, im, cv::COLOR_BGR2GRAY);
+    cv::cvtColor(imBase, im, cv::COLOR_BGR2GRAY);
     threshold(im, im, 200, 255, cv::THRESH_BINARY);
 
     int premierPixelNoirX = im.cols;
@@ -56,14 +56,14 @@ pair<int,int> extractSize(const string& fileIm){
         double ratio = (static_cast<double>(hauteur)/largeur)*250;
         newHauteur = static_cast<int>(ratio);
     }
-    resize(roi, roi, cv::Size(newLargeur, newHauteur));
+    cv::resize(roi, roi, cv::Size(newLargeur, newHauteur));
 
     // Image vide blanche pour les marges
-    Mat imVide(250, 250, roi.type(), cv::Scalar(255, 255, 255));
+    cv::Mat imVide(250, 250, roi.type(), cv::Scalar(255, 255, 255));
     // Position de l'image redimensionnée sur la vide
     int posX = static_cast<int>((250 - newLargeur) / 2);
     int posY = static_cast<int>((250 - newHauteur) / 2);
-    Rect rec = Rect(posX, posY, newLargeur, newHauteur);
+    cv::Rect rec = cv::Rect(posX, posY, newLargeur, newHauteur);
     // Place image redimensionnée sur le fond blanc
     roi.copyTo(imVide(rec));
 
