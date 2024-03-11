@@ -28,65 +28,124 @@ using namespace cv;
 
 
 int main() {
-
+/*
+    vector<Mat> m = zoning(".//..//Test/accident_002_00_0_2.png",2);
+    imshow("image1",m[0]);
+    imshow("image2",m[1]);
+    imshow("image3",m[2]);
+    imshow("image4",m[3]);
+    //termine le programme lorsqu'une touche est frappee
+    waitKey(0);
+    return EXIT_SUCCESS;
+*/
     const char* dossier = ".//..//test";
 
     // Ouvrir le dossier
     DIR* dir = opendir(dossier);
+
+    vector<pair<int,int>> sizes;
+
+    vector<int> hauteur;
+    vector<int> largeur;
+    vector<int> nbPixelNoir;
+    vector<int> barx;
+    vector<int> bary;
+    vector<string> label;
+
+
+    if (dir) {
+        // Parcourir les fichiers dans le dossier
+        struct dirent *entry;
+        while ((entry = readdir(dir)) != nullptr) {
+            string nom = entry->d_name;
+            //cout << nom << endl;
+            if (nom.size() > 2) {
+                string image = string(dossier) + "/" + entry->d_name;
+
+
+                pair<int, int> size = extractSize(image, nom);
+                //cout << "Largeur: " << size.first << endl;
+                // cout << "Hauteur: " << size.second << endl;
+                sizes.push_back(size);
+                hauteur.push_back(size.second);
+                largeur.push_back(size.first);
+            }
+        }
+    }
+    vector<double> haut = normalisation(hauteur);
+    vector<double> lar = normalisation(largeur);
+    for(int i =0; i<haut.size();i++){
+        cout<< haut[i]<< "   "<<hauteur[i]<<endl;
+    }
+    int i =0;
 
     // Ouverture du fichier en mode écriture (creation)
     std::ofstream fichierARFF("./../FichierARFF.arff");
     if (fichierARFF.is_open()) {
 
         fichierARFF<<"@RELATION ../FichierARFF\n\n";
-        fichierARFF<<"@ATTRIBUTES Nombre de pixels noirs numeric\n";
-        fichierARFF<<"@ATTRIBUTES Hauteur numeric\n";
-        fichierARFF<<"@ATTRIBUTES Largeur numeric\n";
-        fichierARFF<<"@ATTRIBUTES Air numeric\n";
-        fichierARFF<<"@ATTRIBUTES x barycentre numeric\n";
-        fichierARFF<<"@ATTRIBUTES y barycentre numeric\n";
-        fichierARFF<<"@ATTRIBUTE class {accident, bomb, car, casualty, electricity, fire, fire brigade, flood, Gas, Injury, paramedics, person, police, road block}\n\n";
+        fichierARFF<<"@ATTRIBUTE Nombre_de_pixels_noirs numeric\n";
+        fichierARFF<<"@ATTRIBUTE Hauteur numeric\n";
+        fichierARFF<<"@ATTRIBUTE Largeur numeric\n";
+        //fichierARFF<<"@ATTRIBUTE Air numeric\n";
+        fichierARFF<<"@ATTRIBUTE x_barycentre numeric\n";
+        fichierARFF<<"@ATTRIBUTE y_barycentre numeric\n";
+        fichierARFF<<"@ATTRIBUTE class {accident, bomb, car, casualty, electricity, fire, fire_brigade, flood, gas, injury, paramedics, person, police, road_block}\n\n";
 
         //fichierARFF<<"@ATTRIBUTES class {Bomb, casulty}\n\n";
         fichierARFF<<"@DATA\n";
 
+
+        dossier = ".//..//image_normalisée";
+        // Ouvrir le dossier
+        dir = opendir(dossier);
+
         if (dir) {
-                // Parcourir les fichiers dans le dossier
-                struct dirent *entry;
-                while ((entry = readdir(dir)) != nullptr) {
-                    string nom = entry->d_name;
-                    if(nom.size() >2) {
-                        string image = string(dossier) + "/" + entry->d_name;
-                        string label = nom.substr(0,nom.size()-15);
+            // Parcourir les fichiers dans le dossier
+            struct dirent *entry;
+            while ((entry = readdir(dir)) != nullptr) {
+                string nom = entry->d_name;
+                //cout << nom << endl;
+                if (nom.size() > 2) {
+                    string image = string(dossier) + "/" + entry->d_name;
+                    label.push_back(nom.substr(0, nom.size() - 15));
+                    vector<int> count = countPixel(image);
+                    nbPixelNoir.push_back(count[1]);
+                                    //cout << "Nb pixels: " << count[0] << endl;
+                                    //cout << "Black pixels: " << count[1] << endl;
+                                    //cout << "White pixels: " << count[2]<< endl; // amount of black pixels is returned from the size
+                                   // double area = air(image);
 
-                        pair<int, int> size = extractSize(image);
-                        //cout << "Largeur: " << size.first << endl;
-                        // cout << "Hauteur: " << size.second << endl;
-
-                        vector<int> count = countPixel("../saved_model.png");
-                        //cout << "Nb pixels: " << count[0] << endl;
-                        //cout << "Black pixels: " << count[1] << endl;
-                        //cout << "White pixels: " << count[2]<< endl; // amount of black pixels is returned from the size
-
-                        double area = air("../saved_model.png");
-
-                        Point barycentre = reco_barycentre("../saved_model.png");
+                                    Point barycentre = reco_barycentre(image);
+                                    barx.push_back(barycentre.x);
+                                    bary.push_back(barycentre.y);
 
 
-                        fichierARFF << count[1] << "," << size.first << "," << size.second << ","<< area <<","<< barycentre.x << ","<< barycentre.y<<","<<label<<endl;
-                    }
+
+                                    //fichierARFF << count[1] << "," << sizes[i].first << "," << sizes[i].second << ","<< area <<","<< barycentre.x << ","<< barycentre.y<<","<<label<<endl;
+                                    i++;
                 }
+            }
 
         }
     // Fermeture du fichier
     fichierARFF.close();
     }else {
         std::cerr << "Erreur : Impossible d'ouvrir le fichier." << std::endl;
-        }
+    }
+    vector<double> nbPixelNoirNorm = normalisation(nbPixelNoir);
+    vector<double> barxNorm = normalisation(barx);
+    vector<double> baryNorm = normalisation(bary);
+    for(int j= 0; j<i;j++){
+        fichierARFF << nbPixelNoirNorm[1] << "," << haut[i] << "," << lar[i] << ","<< barxNorm[j] << ","<< baryNorm[j]<<","<<label[j]<<endl;
+    }
 
     //termine le programme lorsqu'une touche est frappee
     waitKey(0);
-    return EXIT_SUCCESS;}
+    return EXIT_SUCCESS;
+
+
+    }
 
 /*
 
@@ -185,7 +244,7 @@ void rect_cutting(int x_init, int y_init, int size, int inter_x, int inter_y, st
     }
 }
 
-
+/*
 int main (void) {
 
     // Spécifiez le chemin du dossier à parcourir

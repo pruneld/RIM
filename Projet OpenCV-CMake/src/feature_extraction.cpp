@@ -5,8 +5,11 @@
 #include "feature_extraction.hpp"
 #include <fstream>
 #include <iostream>
+#include <numeric>
+using namespace cv;
+using namespace std;
 
-pair<int,int> extractSize(const string& fileIm){
+pair<int,int> extractSize(const string& fileIm, const string nom){
     Mat imBase = imread(fileIm);
     Mat im;
     cv::cvtColor(imBase, im, cv::COLOR_BGR2GRAY);
@@ -67,7 +70,8 @@ pair<int,int> extractSize(const string& fileIm){
     // Place image redimensionnée sur le fond blanc
     roi.copyTo(imVide(rec));
 
-    imwrite("../saved_model.png",imVide);
+    imwrite("../image_nomalisée/" + nom,imVide);
+    imshow("image recadrée", imVide);
 
     return make_pair(largeur, hauteur);
 }
@@ -231,3 +235,46 @@ Point reco_barycentre(const string imName){
     return res;
 
 }
+
+vector<Mat> zoning(const string& image, int nb){
+    Mat im = imread(image);
+
+    vector<Mat> res;
+    double col = im.cols/nb;
+    double lig = im.rows/nb;
+
+    for(int i = 0; i<nb; i++){ // ligne
+        for(int j = 0; j<nb ; j++){ //colonne
+
+            //Create the rectangle
+            Rect roi(col*i, lig*j, col, lig);
+//Create the cv::Mat with the ROI you need, where "image" is the cv::Mat you want to extract the ROI from
+            Mat image_roi = im(roi);
+            res.push_back(image_roi);
+
+        }
+
+    }
+
+    return res;
+
+
+}
+
+vector<double> normalisation(const vector<int> vec){
+    vector<double> res;
+    double moy = accumulate(vec.begin(),vec.end(),0.0)/vec.size();
+    double sum = 0;
+    for(int v : vec){
+        sum += pow( v - moy, 2 );
+    }
+    double et = sqrt(sum/vec.size());
+
+    for(int v : vec){
+        res.push_back((v - moy)/et);
+    }
+
+    return res;
+}
+
+

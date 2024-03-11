@@ -11,10 +11,14 @@
 using namespace std;
 using namespace cv;
 
-pair<int,int> extractSize(const string& fileIm);
+pair<int,int> extractSize(const string& fileIm, const string nom);
 vector<int> countPixel( const string& image);
 double air(const string& image);
 Point reco_barycentre(const string imName);
+vector<Mat> zoning(const string& image,int nb);
+vector<double> normalisation(const vector<int> vec);
+
+
 
 
 

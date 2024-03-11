@@ -1,54 +1,11 @@
 @RELATION ../FichierARFF
 
-@ATTRIBUTES Nombre de pixels noirs numeric
-@ATTRIBUTES Hauteur numeric
-@ATTRIBUTES Largeur numeric
-@ATTRIBUTES Air numeric
-@ATTRIBUTES x barycentre numeric
-@ATTRIBUTES y barycentre numeric
-@ATTRIBUTE class {accident, bomb, car, casualty, electricity, fire, fire brigade, flood, Gas, Injury, paramedics, person, police, road block}
+@ATTRIBUTE Nombre_de_pixels_noirs numeric
+@ATTRIBUTE Hauteur numeric
+@ATTRIBUTE Largeur numeric
+@ATTRIBUTE Air numeric
+@ATTRIBUTE x_barycentre numeric
+@ATTRIBUTE y_barycentre numeric
+@ATTRIBUTE class {accident, bomb, car, casualty, electricity, fire, fire_brigade, flood, gas, injury, paramedics, person, police, road_block}
 
 @DATA
-7496,128,125,6733.5,100,188,accident
-10262,88,83,9602,132,139,accident
-7609,119,106,47432.5,121,160,accident
-6480,49,85,5917,195,163,bomb
-3543,135,195,2934,119,167,bomb
-4490,95,155,33422,125,169,bomb
-6464,98,59,6716,100,139,car
-3183,204,114,4012,182,147,car
-5611,155,97,4699.5,113,169,car
-4941,200,196,5473,120,19,casualty
-8343,89,75,9253,50,215,casualty
-5414,147,135,6135,73,210,casualty
-3744,65,132,3307,84,237,electricity
-9071,44,70,8577,129,145,electricity
-5214,74,131,4697,119,145,electricity
-18127,52,58,36766.5,114,117,fire brigade
-4223,221,229,3306.5,95,145,fire brigade
-7682,131,127,6769.5,77,95,fire brigade
-6577,90,122,5926,136,125,fire
-4066,123,179,3464.5,124,101,fire
-4869,169,186,4076.5,132,107,fire
-6565,112,81,5892,153,153,flood
-4357,209,155,3571.5,136,139,flood
-8004,92,107,7086.5,120,180,flood
-5453,194,177,4544.5,135,179,flood
-5792,99,131,5031,171,10,gas
-5848,124,161,5006.5,177,132,gas
-4244,104,227,3483,135,124,gas
-3611,204,98,18216.5,69,125,injury
-4812,138,69,14223.5,48,140,injury
-6988,90,44,6442,80,68,injury
-17368,60,63,78816.5,229,23,paramedics
-11961,75,64,11041.5,121,134,paramedics
-8010,129,132,6864,144,155,paramedics
-2571,101,216,2062.5,81,224,person
-3112,41,109,2767,85,223,person
-4491,31,74,4032,80,226,person
-3967,193,219,3203.5,233,121,police
-4736,138,165,3998,120,125,police
-6547,117,133,5752,122,96,police
-4831,147,197,4053.5,119,115,road block
-9888,92,99,80024,120,127,road block
-8320,93,103,7431,140,149,road block
